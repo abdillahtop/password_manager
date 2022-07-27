@@ -13,28 +13,17 @@ async function bootstrap() {
     .setDescription('Ready For Test')
     .setVersion('1.0')
     .addTag('api')
-    .addBearerAuth(
-      { 
-        // I was also testing it without prefix 'Bearer ' before the JWT
-        description: `[just text field] Please enter token in following format: Bearer <JWT>`,
-        name: 'Authorization',
-        bearerFormat: 'Basic', // I`ve tested not to use this field, but the result was the same
-        scheme: 'Basic',
-        type: 'http', // I`ve attempted type: 'apiKey' too
-        in: 'Header'
-      },
-      'access-token', // This name here is important for matching up with @ApiBearerAuth() in your controller!
-    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document,{
+  SwaggerModule.setup('api', app, document, {
     swaggerOptions: {
       requestInterceptor: (req) => {
+        //Added your basic auth below 
         req.headers['Authorization'] = 'Basic cXVlcnk6MTIzNDU2';
         return req;
       },
-    },
+    }
   });
 
   await app.listen(port, () => {

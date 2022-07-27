@@ -9,6 +9,7 @@ npm run test:cov
 # Swagger
 ```
 localhost:{{PORT}}/api
+put your basic auth to src/main for access
 ```
 ![alt text](./uploads/swagger.png)
 
